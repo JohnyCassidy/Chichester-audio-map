@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chichester Audio Map</title>
+  <link rel="stylesheet" href="vintage_map_style.css">
+</head>
+<body>
+  <h1>Chichester Audio Map</h1>
+  <div class="map-zone" tabindex="0" data-sound="sounds/bells.mp3"
+       data-description="You are at Chichester Cathedral. Chichester Cross is 300 meters to the east.">
+    Chichester Cathedral
+  </div>
+  <div class="map-zone" tabindex="0" data-sound="sounds/gallery_ambient.mp3"
+       data-description="You are at Pallant House Gallery. North Street is 150 meters to the north.">
+    Pallant House Gallery
+  </div>
+  <script>
+    function playDescription(text, soundFile) {
+      const synth = window.speechSynthesis;
+      const voices = synth.getVoices();
+      const preferredVoice = voices.find(v =>
+        v.lang === 'en-GB' && v.name.toLowerCase().includes('female')
+      ) || voices.find(v => v.lang === 'en-GB');
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = preferredVoice;
+      utterance.lang = 'en-GB';
+      synth.cancel();
+      synth.speak(utterance);
+
+      const audio = new Audio(soundFile);
+      audio.volume = 0.2;
+      audio.play();
+    }
+
+    document.querySelectorAll('.map-zone').forEach(zone => {
+      zone.addEventListener('focus', () => {
+        const desc = zone.getAttribute('data-description');
+        const sound = zone.getAttribute('data-sound');
+        playDescription(desc, sound);
+      });
+    });
+  </script>
+</body>
+</html>
