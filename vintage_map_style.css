@@ -1,0 +1,17 @@
+
+body {
+  background-color: #fdf6e3;
+  font-family: Georgia, serif;
+  padding: 20px;
+}
+.map-zone {
+  margin: 10px 0;
+  padding: 10px;
+  border: 2px solid #8b5e3c;
+  background-color: #fff8dc;
+  box-shadow: 2px 2px 5px #aaa;
+}
+.map-zone:focus {
+  outline: 3px solid #8b5e3c;
+  background-color: #f5deb3;
+}
